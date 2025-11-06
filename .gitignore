@@ -45,3 +45,6 @@ Thumbs.db
 
 # Output files
 *.log
+
+# ruff
+.ruff_cache
