@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuk Design System - Interactive Showcase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: #18181b;
+            background: #fafafa;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+
+        .nav {
+            background: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .nav a:hover {
+            color: #2563eb;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section {
+            background: white;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #18181b;
+            border-bottom: 3px solid #3b82f6;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Color Palettes */
+        .color-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .color-scale {
+            display: flex;
+            gap: 2px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .color-swatch {
+            flex: 1;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.2s;
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        .color-swatch-label {
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .color-scale-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-transform: capitalize;
+        }
+
+        /* Gradients */
+        .gradient-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gradient-card {
+            height: 150px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .gradient-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+        }
+
+        /* Typography */
+        .typography-samples {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .text-style {
+            padding: 1.5rem;
+            background: #f9fafb;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .text-style-label {
+            font-size: 0.875rem;
+            color: #71717a;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.025em;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.025em;
+        }
+
+        .heading {
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        .body-text {
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .caption-text {
+            font-size: 0.875rem;
+            font-weight: 500;
+            line-height: 1.75;
+            letter-spacing: 0.025em;
+        }
+
+        /* Semantic Colors */
+        .semantic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .semantic-card {
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .semantic-card:hover {
+            transform: scale(1.05);
+        }
+
+        .semantic-label {
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .semantic-hex {
+            font-size: 0.875rem;
+            opacity: 0.8;
+            margin-top: 0.25rem;
+        }
+
+        /* Motion */
+        .motion-demo {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .easing-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .easing-card {
+            text-align: center;
+        }
+
+        .easing-box {
+            width: 60px;
+            height: 60px;
+            background: #3b82f6;
+            border-radius: 8px;
+            margin: 1rem auto;
+            cursor: pointer;
+        }
+
+        .easing-box:hover {
+            animation: slideIn 1s;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .easing-box.linear:hover { animation-timing-function: linear; }
+        .easing-box.ease-out:hover { animation-timing-function: cubic-bezier(0.0, 0.0, 0.58, 1.0); }
+        .easing-box.ease-in-out:hover { animation-timing-function: cubic-bezier(0.42, 0.0, 0.58, 1.0); }
+        .easing-box.smooth:hover { animation-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1.0); }
+        .easing-box.snappy:hover { animation-timing-function: cubic-bezier(0.4, 0.0, 0.6, 1.0); }
+        .easing-box.bouncy:hover { animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+
+        .easing-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .easing-curve {
+            font-size: 0.875rem;
+            color: #71717a;
+        }
+
+        /* Spacing */
+        .spacing-demo {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .spacing-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .spacing-label {
+            width: 100px;
+            font-weight: 600;
+        }
+
+        .spacing-bar {
+            background: #3b82f6;
+            height: 40px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        /* Theme Comparison */
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .theme-card {
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .theme-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .theme-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .theme-colors {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .theme-color-bar {
+            padding: 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .footer {
+            background: #18181b;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .footer-links a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎨 Chuk Design System</h1>
+        <p>Interactive Showcase - Explore Colors, Typography, Motion & More</p>
+    </div>
+
+    <nav class="nav">
+        <ul>
+            <li><a href="#colors">Colors</a></li>
+            <li><a href="#gradients">Gradients</a></li>
+            <li><a href="#semantic">Semantic</a></li>
+            <li><a href="#typography">Typography</a></li>
+            <li><a href="#motion">Motion</a></li>
+            <li><a href="#spacing">Spacing</a></li>
+            <li><a href="#themes">Themes</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Color Palettes -->
+        <section id="colors" class="section">
+            <h2 class="section-title">Color Palettes</h2>
+            <p style="margin-bottom: 2rem; color: #71717a;">Tailwind-inspired color scales (50-950). Click to copy hex values.</p>
+
+            <div class="color-grid">
+                <div>
+                    <div class="color-scale-name">Blue</div>
+                    <div class="color-scale">
+                        <div class="color-swatch" style="background: #eff6ff;"><span class="color-swatch-label" style="color: #1e3a8a;">50</span></div>
+                        <div class="color-swatch" style="background: #dbeafe;"><span class="color-swatch-label" style="color: #1e3a8a;">100</span></div>
+                        <div class="color-swatch" style="background: #bfdbfe;"><span class="color-swatch-label" style="color: #1e3a8a;">200</span></div>
+                        <div class="color-swatch" style="background: #93c5fd;"><span class="color-swatch-label" style="color: #1e3a8a;">300</span></div>
+                        <div class="color-swatch" style="background: #60a5fa;"><span class="color-swatch-label">400</span></div>
+                        <div class="color-swatch" style="background: #3b82f6;"><span class="color-swatch-label">500</span></div>
+                        <div class="color-swatch" style="background: #2563eb;"><span class="color-swatch-label">600</span></div>
+                        <div class="color-swatch" style="background: #1d4ed8;"><span class="color-swatch-label">700</span></div>
+                        <div class="color-swatch" style="background: #1e40af;"><span class="color-swatch-label">800</span></div>
+                        <div class="color-swatch" style="background: #1e3a8a;"><span class="color-swatch-label">900</span></div>
+                        <div class="color-swatch" style="background: #172554;"><span class="color-swatch-label">950</span></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="color-scale-name">Green</div>
+                    <div class="color-scale">
+                        <div class="color-swatch" style="background: #f0fdf4;"><span class="color-swatch-label" style="color: #14532d;">50</span></div>
+                        <div class="color-swatch" style="background: #dcfce7;"><span class="color-swatch-label" style="color: #14532d;">100</span></div>
+                        <div class="color-swatch" style="background: #bbf7d0;"><span class="color-swatch-label" style="color: #14532d;">200</span></div>
+                        <div class="color-swatch" style="background: #86efac;"><span class="color-swatch-label" style="color: #14532d;">300</span></div>
+                        <div class="color-swatch" style="background: #4ade80;"><span class="color-swatch-label">400</span></div>
+                        <div class="color-swatch" style="background: #22c55e;"><span class="color-swatch-label">500</span></div>
+                        <div class="color-swatch" style="background: #16a34a;"><span class="color-swatch-label">600</span></div>
+                        <div class="color-swatch" style="background: #15803d;"><span class="color-swatch-label">700</span></div>
+                        <div class="color-swatch" style="background: #166534;"><span class="color-swatch-label">800</span></div>
+                        <div class="color-swatch" style="background: #14532d;"><span class="color-swatch-label">900</span></div>
+                        <div class="color-swatch" style="background: #052e16;"><span class="color-swatch-label">950</span></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="color-scale-name">Purple</div>
+                    <div class="color-scale">
+                        <div class="color-swatch" style="background: #faf5ff;"><span class="color-swatch-label" style="color: #581c87;">50</span></div>
+                        <div class="color-swatch" style="background: #f3e8ff;"><span class="color-swatch-label" style="color: #581c87;">100</span></div>
+                        <div class="color-swatch" style="background: #e9d5ff;"><span class="color-swatch-label" style="color: #581c87;">200</span></div>
+                        <div class="color-swatch" style="background: #d8b4fe;"><span class="color-swatch-label" style="color: #581c87;">300</span></div>
+                        <div class="color-swatch" style="background: #c084fc;"><span class="color-swatch-label">400</span></div>
+                        <div class="color-swatch" style="background: #a855f7;"><span class="color-swatch-label">500</span></div>
+                        <div class="color-swatch" style="background: #9333ea;"><span class="color-swatch-label">600</span></div>
+                        <div class="color-swatch" style="background: #7e22ce;"><span class="color-swatch-label">700</span></div>
+                        <div class="color-swatch" style="background: #6b21a8;"><span class="color-swatch-label">800</span></div>
+                        <div class="color-swatch" style="background: #581c87;"><span class="color-swatch-label">900</span></div>
+                        <div class="color-swatch" style="background: #3b0764;"><span class="color-swatch-label">950</span></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="color-scale-name">Pink</div>
+                    <div class="color-scale">
+                        <div class="color-swatch" style="background: #fdf2f8;"><span class="color-swatch-label" style="color: #831843;">50</span></div>
+                        <div class="color-swatch" style="background: #fce7f3;"><span class="color-swatch-label" style="color: #831843;">100</span></div>
+                        <div class="color-swatch" style="background: #fbcfe8;"><span class="color-swatch-label" style="color: #831843;">200</span></div>
+                        <div class="color-swatch" style="background: #f9a8d4;"><span class="color-swatch-label" style="color: #831843;">300</span></div>
+                        <div class="color-swatch" style="background: #f472b6;"><span class="color-swatch-label">400</span></div>
+                        <div class="color-swatch" style="background: #ec4899;"><span class="color-swatch-label">500</span></div>
+                        <div class="color-swatch" style="background: #db2777;"><span class="color-swatch-label">600</span></div>
+                        <div class="color-swatch" style="background: #be185d;"><span class="color-swatch-label">700</span></div>
+                        <div class="color-swatch" style="background: #9f1239;"><span class="color-swatch-label">800</span></div>
+                        <div class="color-swatch" style="background: #831843;"><span class="color-swatch-label">900</span></div>
+                        <div class="color-swatch" style="background: #500724;"><span class="color-swatch-label">950</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gradients -->
+        <section id="gradients" class="section">
+            <h2 class="section-title">Gradients</h2>
+            <p style="margin-bottom: 2rem; color: #71717a;">Pre-defined gradient options for backgrounds and accents. Hover for effect.</p>
+
+            <div class="gradient-grid">
+                <div class="gradient-card" style="background: linear-gradient(135deg, #ff6b6b 0%, #f7b731 50%, #5f27cd 100%);">
+                    Sunset
+                </div>
+                <div class="gradient-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);">
+                    Ocean
+                </div>
+                <div class="gradient-card" style="background: linear-gradient(135deg, #00b09b 0%, #96c93d 50%, #ffe000 100%);">
+                    Forest
+                </div>
+                <div class="gradient-card" style="background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 50%, #ffc837 100%);">
+                    Flame
+                </div>
+                <div class="gradient-card" style="background: linear-gradient(135deg, #00c9ff 0%, #92fe9d 50%, #fc00ff 100%);">
+                    Aurora
+                </div>
+                <div class="gradient-card" style="background: linear-gradient(135deg, #7303c0 0%, #ec38bc 50%, #03001e 100%);">
+                    Cosmic
+                </div>
+            </div>
+        </section>
+
+        <!-- Semantic Colors -->
+        <section id="semantic" class="section">
+            <h2 class="section-title">Semantic Colors</h2>
+            <p style="margin-bottom: 2rem; color: #71717a;">Role-based colors (Canva-compatible). Dark mode shown.</p>
+
+            <div class="semantic-grid">
+                <div class="semantic-card" style="background: #3b82f6; color: white;">
+                    <div style="font-size: 2rem;">🎯</div>
+                    <div class="semantic-label">Primary</div>
+                    <div class="semantic-hex">#3b82f6</div>
+                </div>
+                <div class="semantic-card" style="background: #60a5fa; color: white;">
+                    <div style="font-size: 2rem;">✨</div>
+                    <div class="semantic-label">Accent</div>
+                    <div class="semantic-hex">#60a5fa</div>
+                </div>
+                <div class="semantic-card" style="background: #16a34a; color: white;">
+                    <div style="font-size: 2rem;">✅</div>
+                    <div class="semantic-label">Success</div>
+                    <div class="semantic-hex">#16a34a</div>
+                </div>
+                <div class="semantic-card" style="background: #d97706; color: white;">
+                    <div style="font-size: 2rem;">⚠️</div>
+                    <div class="semantic-label">Warning</div>
+                    <div class="semantic-hex">#d97706</div>
+                </div>
+                <div class="semantic-card" style="background: #dc2626; color: white;">
+                    <div style="font-size: 2rem;">❌</div>
+                    <div class="semantic-label">Error</div>
+                    <div class="semantic-hex">#dc2626</div>
+                </div>
+                <div class="semantic-card" style="background: #09090b; color: white;">
+                    <div style="font-size: 2rem;">🌙</div>
+                    <div class="semantic-label">Background</div>
+                    <div class="semantic-hex">#09090b</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typography -->
+        <section id="typography" class="section">
+            <h2 class="section-title">Typography</h2>
+            <p style="margin-bottom: 2rem; color: #71717a;">Text style presets for consistent hierarchy.</p>
+
+            <div class="typography-samples">
+                <div class="text-style">
+                    <div class="text-style-label">Hero Title (36px, weight 900)</div>
+                    <div class="hero-title">The Quick Brown Fox</div>
+                </div>
+
+                <div class="text-style">
+                    <div class="text-style-label">Title (30px, weight 700)</div>
+                    <div class="title">The Quick Brown Fox Jumps</div>
+                </div>
+
+                <div class="text-style">
+                    <div class="text-style-label">Heading (24px, weight 600)</div>
+                    <div class="heading">The Quick Brown Fox Jumps Over</div>
+                </div>
+
+                <div class="text-style">
+                    <div class="text-style-label">Body (16px, weight 400)</div>
+                    <div class="body-text">The quick brown fox jumps over the lazy dog. This is the standard body text style used for paragraphs, descriptions, and general content throughout the interface.</div>
+                </div>
+
+                <div class="text-style">
+                    <div class="text-style-label">Caption (14px, weight 500)</div>
+                    <div class="caption-text">The quick brown fox jumps over the lazy dog. Use captions for supporting text, labels, and secondary information.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Motion -->
+        <section id="motion" class="section">
+            <h2 class="section-title">Motion & Animation</h2>
+            <p style="margin-bottom: 2rem; color: #71717a;">Easing curves for smooth animations. Hover over boxes to see the effect.</p>
+
+            <div class="easing-showcase">
+                <div class="easing-card">
+                    <div class="easing-name">Linear</div>
+                    <div class="easing-box linear"></div>
+                    <div class="easing-curve">[0.0, 0.0, 1.0, 1.0]</div>
+                </div>
+
+                <div class="easing-card">
+                    <div class="easing-name">Ease Out</div>
+                    <div class="easing-box ease-out"></div>
+                    <div class="easing-curve">[0.0, 0.0, 0.58, 1.0]</div>
+                </div>
+
+                <div class="easing-card">
+                    <div class="easing-name">Ease In Out</div>
+                    <div class="easing-box ease-in-out"></div>
+                    <div class="easing-curve">[0.42, 0.0, 0.58, 1.0]</div>
+                </div>
+
+                <div class="easing-card">
+                    <div class="easing-name">Smooth</div>
+                    <div class="easing-box smooth"></div>
+                    <div class="easing-curve">[0.4, 0.0, 0.2, 1.0]</div>
+                </div>
+
+                <div class="easing-card">
+                    <div class="easing-name">Snappy</div>
+                    <div class="easing-box snappy"></div>
+                    <div class="easing-curve">[0.4, 0.0, 0.6, 1.0]</div>
+                </div>
+
+                <div class="easing-card">
+                    <div class="easing-name">Bouncy</div>
+                    <div class="easing-box bouncy"></div>
+                    <div class="easing-curve">[0.68, -0.55, 0.265, 1.55]</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Spacing -->
+        <section id="spacing" class="section">
+            <h2 class="section-title">Spacing System</h2>
+            <p style="margin-bottom: 2rem; color: #71717a;">8px base unit system (Canva-compatible).</p>
+
+            <div class="spacing-demo">
+                <div class="spacing-row">
+                    <div class="spacing-label">0.5u (4px)</div>
+                    <div class="spacing-bar" style="width: 4px;"></div>
+                </div>
+                <div class="spacing-row">
+                    <div class="spacing-label">1u (8px)</div>
+                    <div class="spacing-bar" style="width: 8px;"></div>
+                </div>
+                <div class="spacing-row">
+                    <div class="spacing-label">2u (16px)</div>
+                    <div class="spacing-bar" style="width: 16px;">16px</div>
+                </div>
+                <div class="spacing-row">
+                    <div class="spacing-label">3u (24px)</div>
+                    <div class="spacing-bar" style="width: 24px;">24px</div>
+                </div>
+                <div class="spacing-row">
+                    <div class="spacing-label">4u (32px)</div>
+                    <div class="spacing-bar" style="width: 32px;">32px</div>
+                </div>
+                <div class="spacing-row">
+                    <div class="spacing-label">6u (48px)</div>
+                    <div class="spacing-bar" style="width: 48px;">48px</div>
+                </div>
+                <div class="spacing-row">
+                    <div class="spacing-label">8u (64px)</div>
+                    <div class="spacing-bar" style="width: 64px;">64px</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theme Comparison -->
+        <section id="themes" class="section">
+            <h2 class="section-title">Theme Comparison</h2>
+            <p style="margin-bottom: 2rem; color: #71717a;">Pre-built themes for different use cases.</p>
+
+            <div class="theme-grid">
+                <div class="theme-card" style="background: #09090b;">
+                    <div class="theme-name" style="color: white;">Tech</div>
+                    <div class="theme-colors">
+                        <div class="theme-color-bar" style="background: #3b82f6; color: white;">Primary</div>
+                        <div class="theme-color-bar" style="background: #60a5fa; color: white;">Accent</div>
+                        <div class="theme-color-bar" style="background: #16a34a; color: white;">Success</div>
+                    </div>
+                </div>
+
+                <div class="theme-card" style="background: #09090b;">
+                    <div class="theme-name" style="color: white;">Finance</div>
+                    <div class="theme-colors">
+                        <div class="theme-color-bar" style="background: #22c55e; color: white;">Primary</div>
+                        <div class="theme-color-bar" style="background: #4ade80; color: white;">Accent</div>
+                        <div class="theme-color-bar" style="background: #16a34a; color: white;">Success</div>
+                    </div>
+                </div>
+
+                <div class="theme-card" style="background: #09090b;">
+                    <div class="theme-name" style="color: white;">Education</div>
+                    <div class="theme-colors">
+                        <div class="theme-color-bar" style="background: #a855f7; color: white;">Primary</div>
+                        <div class="theme-color-bar" style="background: #c084fc; color: white;">Accent</div>
+                        <div class="theme-color-bar" style="background: #16a34a; color: white;">Success</div>
+                    </div>
+                </div>
+
+                <div class="theme-card" style="background: #ffffff; border: 1px solid #e4e4e7;">
+                    <div class="theme-name">Lifestyle</div>
+                    <div class="theme-colors">
+                        <div class="theme-color-bar" style="background: #db2777; color: white;">Primary</div>
+                        <div class="theme-color-bar" style="background: #ec4899; color: white;">Accent</div>
+                        <div class="theme-color-bar" style="background: #16a34a; color: white;">Success</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <h3>Chuk Design System</h3>
+        <p style="margin-top: 0.5rem; opacity: 0.8;">Universal design tokens for multi-format export</p>
+        <div class="footer-links">
+            <a href="https://github.com/chrishayuk/chuk-mcp-design-system">GitHub</a>
+            <a href="../README.md">Documentation</a>
+            <a href="showcase_visual.py">Generate PNG Exports</a>
+        </div>
+        <p style="margin-top: 2rem; opacity: 0.6; font-size: 0.875rem;">
+            Generated with Claude Code • Export to Canva, Remotion, PPTX, CSS, W3C JSON
+        </p>
+    </footer>
+
+    <script>
+        // Copy hex color on click
+        document.querySelectorAll('.color-swatch').forEach(swatch => {
+            swatch.addEventListener('click', () => {
+                const color = swatch.style.background;
+                navigator.clipboard.writeText(color);
+
+                // Visual feedback
+                const original = swatch.innerHTML;
+                swatch.innerHTML = '<span style="color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">✓ Copied</span>';
+                setTimeout(() => {
+                    swatch.innerHTML = original;
+                }, 1000);
+            });
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
